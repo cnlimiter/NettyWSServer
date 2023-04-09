@@ -1,7 +1,7 @@
-package cn.evolvefield.dev.core;
+package cn.evolvefield.sdk.fastws.core;
 
-import cn.evolvefield.dev.common.WSServerConfig;
-import cn.evolvefield.dev.impl.WebSocketChannelInitializer;
+import cn.evolvefield.sdk.fastws.common.WSServerConfig;
+import cn.evolvefield.sdk.fastws.impl.WebSocketChannelInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -44,11 +44,11 @@ public abstract class FastWSServer implements WebSocketServer {
             }
         });
     }
-    public void start(final String url, final int port) {
+    public void start(final String url, final int port, final String path) {
         start(new WSServerConfig() {
             @Override
             public ChannelHandler getChildHandler() {
-                return new WebSocketChannelInitializer(FastWSServer.this);
+                return new WebSocketChannelInitializer(FastWSServer.this, path);
             }
 
             @Override
@@ -63,11 +63,11 @@ public abstract class FastWSServer implements WebSocketServer {
         });
     }
 
-    public void start(final int port) {
+    public void start(final int port, final String path) {
         start(new WSServerConfig() {
             @Override
             public ChannelHandler getChildHandler() {
-                return new WebSocketChannelInitializer(FastWSServer.this);
+                return new WebSocketChannelInitializer(FastWSServer.this, path);
             }
 
             @Override
@@ -81,9 +81,12 @@ public abstract class FastWSServer implements WebSocketServer {
             }
         });
     }
+    public void start(final int port) {
+        start(port, "");
+    }
 
     public void start() {
-        start(8080);
+        start(8080, "");
     }
 
     public void stop() {

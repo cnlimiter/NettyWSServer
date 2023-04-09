@@ -1,6 +1,6 @@
-package cn.evolvefield.dev.impl;
+package cn.evolvefield.sdk.fastws.impl;
 
-import cn.evolvefield.dev.core.WebSocketServer;
+import cn.evolvefield.sdk.fastws.core.WebSocketServer;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPipeline;
 import io.netty.handler.codec.http.websocketx.Utf8FrameValidator;
@@ -25,12 +25,12 @@ public class WebSocketServerAuthProtocolHandler extends WebSocketServerProtocolH
     }
 
     public WebSocketServerAuthProtocolHandler(String websocketPath, String subprotocols, boolean allowExtensions, WebSocketServer webSocketServer) {
-        this(websocketPath, subprotocols, allowExtensions, 65536,webSocketServer);
+        this(websocketPath, subprotocols, allowExtensions, 65536, webSocketServer);
     }
 
     public WebSocketServerAuthProtocolHandler(String websocketPath, String subprotocols,
                                               boolean allowExtensions, int maxFrameSize, WebSocketServer webSocketServer) {
-        this(websocketPath, subprotocols, allowExtensions, maxFrameSize, false,webSocketServer);
+        this(websocketPath, subprotocols, allowExtensions, maxFrameSize, false, webSocketServer);
     }
 
     public WebSocketServerAuthProtocolHandler(String websocketPath, String subprotocols, boolean allowExtensions, int maxFrameSize, boolean allowMaskMismatch, WebSocketServer webSocketServer) {

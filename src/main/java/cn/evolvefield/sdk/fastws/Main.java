@@ -1,4 +1,4 @@
-package cn.evolvefield.dev;
+package cn.evolvefield.sdk.fastws;
 
 public class Main {
     public static void main(String[] args) {

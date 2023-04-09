@@ -1,8 +1,9 @@
-package cn.evolvefield.dev.impl;
+package cn.evolvefield.sdk.fastws.impl;
 
-import cn.evolvefield.dev.common.UrlEntity;
-import cn.evolvefield.dev.core.WebSocketServer;
-import cn.evolvefield.dev.core.WebSocketSession;
+import cn.evolvefield.sdk.fastws.common.SessionsManager;
+import cn.evolvefield.sdk.fastws.common.UrlEntity;
+import cn.evolvefield.sdk.fastws.core.WebSocketServer;
+import cn.evolvefield.sdk.fastws.core.WebSocketSession;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
@@ -56,7 +57,7 @@ public class WebSocketServerAuthHandshakeHandler extends ChannelInboundHandlerAd
             }
             //这里不再使用路由分发，太懒了，全部用一个接口吧qwq
 
-            WebSocketSession session = Sessions.createSession(ctx);
+            WebSocketSession session = SessionsManager.createSession(ctx);
             session.setChannel(ctx.channel());
             session.setId(ctx.channel().hashCode());
             session.setUri(req.uri());

@@ -1,6 +1,6 @@
-package cn.evolvefield.dev.impl;
+package cn.evolvefield.sdk.fastws.impl;
 
-import cn.evolvefield.dev.core.WebSocketServer;
+import cn.evolvefield.sdk.fastws.core.WebSocketServer;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -20,9 +20,12 @@ public class WebSocketChannelInitializer extends ChannelInitializer<SocketChanne
 
     private final WebSocketServer server;
 
+    private final String path;
 
-    public WebSocketChannelInitializer(WebSocketServer server){
+
+    public WebSocketChannelInitializer(WebSocketServer server, String path){
         this.server = server;
+        this.path = path;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class WebSocketChannelInitializer extends ChannelInitializer<SocketChanne
         // webSocket 数据压缩扩展，当添加这个的时候WebSocketServerProtocolHandler的第三个参数需要设置成true
         pipeline.addLast(new WebSocketServerCompressionHandler());
         // 服务器端向外暴露的 web socket 端点，当客户端传递比较大的对象时，maxFrameSize参数的值需要调大
-        pipeline.addLast(new WebSocketServerAuthProtocolHandler("/ws/onebot/", null, true, 65536, server));
+        pipeline.addLast(new WebSocketServerAuthProtocolHandler("/" + path, null, true, 65536, server));
         pipeline.addLast(new LengthFieldPrepender(4));
         // 业务代码
         pipeline.addLast(new WebSocketServerChannelInboundHandler(server));

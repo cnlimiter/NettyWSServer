@@ -1,4 +1,4 @@
-package cn.evolvefield.dev.common;
+package cn.evolvefield.sdk.fastws.common;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.nio.NioEventLoopGroup;

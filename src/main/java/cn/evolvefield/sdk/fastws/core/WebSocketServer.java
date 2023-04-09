@@ -1,4 +1,4 @@
-package cn.evolvefield.dev.core;
+package cn.evolvefield.sdk.fastws.core;
 
 import io.netty.buffer.Unpooled;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;

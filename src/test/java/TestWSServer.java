@@ -1,7 +1,9 @@
-import cn.evolvefield.dev.core.FastWSServer;
-import cn.evolvefield.dev.core.WebSocketSession;
-import lombok.extern.slf4j.Slf4j;
+import cn.evolvefield.sdk.fastws.core.FastWSServer;
+import cn.evolvefield.sdk.fastws.core.WebSocketServer;
+import cn.evolvefield.sdk.fastws.core.WebSocketSession;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Description:
@@ -9,12 +11,16 @@ import org.junit.jupiter.api.Test;
  * Date: 2022/10/14 20:30
  * Version: 1.0
  */
-public class TestWSServer extends FastWSServer {
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(TestWSServer.class);
+public class TestWSServer extends FastWSServer implements WebSocketServer {
 
+    private final Logger logger = LoggerFactory.getLogger("Test");
+    public static TestWSServer INSTANCE = new TestWSServer();
+    public static void main(String[] args){
+        INSTANCE.startWS();
+    }
     @Test
     public void startWS(){
-        super.start("127.0.0.1", 8080);
+        super.start("127.0.0.1", 8080, "help");
     }
 
     @Override
@@ -25,6 +31,7 @@ public class TestWSServer extends FastWSServer {
     @Override
     public void onMessage(WebSocketSession session, String message) {
         logger.info(message);
+        send(session, message);
     }
 
     @Override

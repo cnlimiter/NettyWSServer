@@ -1,7 +1,8 @@
-package cn.evolvefield.dev.impl;
+package cn.evolvefield.sdk.fastws.impl;
 
-import cn.evolvefield.dev.core.WebSocketServer;
-import cn.evolvefield.dev.core.WebSocketSession;
+import cn.evolvefield.sdk.fastws.common.SessionsManager;
+import cn.evolvefield.sdk.fastws.core.WebSocketServer;
+import cn.evolvefield.sdk.fastws.core.WebSocketSession;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
@@ -22,7 +23,7 @@ public class WebSocketServerChannelInboundHandler extends SimpleChannelInboundHa
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
-        WebSocketSession session = Sessions.getSession(ctx);
+        WebSocketSession session = SessionsManager.getSession(ctx);
 
         if(msg instanceof TextWebSocketFrame){
             String message = ((TextWebSocketFrame) msg).text();
@@ -48,13 +49,13 @@ public class WebSocketServerChannelInboundHandler extends SimpleChannelInboundHa
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         super.exceptionCaught(ctx, cause);
-        webSocketServer.onError(Sessions.getSession(ctx),cause);
+        webSocketServer.onError(SessionsManager.getSession(ctx),cause);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         super.channelInactive(ctx);
-        WebSocketSession destroy = Sessions.destroy(ctx);
+        WebSocketSession destroy = SessionsManager.destroy(ctx);
         webSocketServer.onClose(destroy);
     }
 }

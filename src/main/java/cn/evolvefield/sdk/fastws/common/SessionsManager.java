@@ -1,6 +1,6 @@
-package cn.evolvefield.dev.impl;
+package cn.evolvefield.sdk.fastws.common;
 
-import cn.evolvefield.dev.core.WebSocketSession;
+import cn.evolvefield.sdk.fastws.core.WebSocketSession;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Version: 1.0
  */
 @Slf4j
-public class Sessions {
+public class SessionsManager {
     private static final ConcurrentHashMap<Channel, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     public static WebSocketSession createSession(ChannelHandlerContext ctx){
